@@ -1,7 +1,7 @@
 {
   "name": "speedscope-in-vscode",
-  "displayName": "speedscope in vscode",
-  "description": "View speedscope graphs in VSCode",
+  "displayName": "View speedscope flamegraphs in VSCode",
+  "description": "View speedscope flamegraphs in VSCode",
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.81.0"
@@ -12,10 +12,16 @@
   "activationEvents": [],
   "main": "./out/extension.js",
   "contributes": {
-    "commands": [
+    "customEditors": [
       {
-        "command": "speedscope-in-vscode.helloWorld",
-        "title": "Hello World"
+        "viewType": "speedscope-in-vscode.speedscope",
+        "displayName": "Speedscope",
+        "priority": "option",
+        "selector": [
+          {
+            "filenamePattern": "*"
+          }
+        ]
       }
     ]
   },
