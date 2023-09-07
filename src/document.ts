@@ -7,7 +7,5 @@ export class SpeedscopeDocument implements vscode.CustomDocument {
     this.uri = uri;
   }
 
-  dispose(): void {
-    throw new Error("Method not implemented.");
-  }
+  dispose(): void {}
 }

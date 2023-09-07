@@ -26,13 +26,23 @@ export class SpeedscopeEditorProvider
     openContext: vscode.CustomDocumentOpenContext,
     token: vscode.CancellationToken,
   ): SpeedscopeDocument | Thenable<SpeedscopeDocument> {
-    throw new Error("Method not implemented.");
+    return new SpeedscopeDocument(uri);
   }
+
   resolveCustomEditor(
     document: SpeedscopeDocument,
     webviewPanel: vscode.WebviewPanel,
     token: vscode.CancellationToken,
   ): void | Thenable<void> {
-    throw new Error("Method not implemented.");
+    // Setup initial content for the webview
+    webviewPanel.webview.options = {
+      enableScripts: true,
+    };
+
+    const imgURI = webviewPanel.webview.asWebviewUri(
+      vscode.Uri.joinPath(this.context.extensionUri, "test-files", "sand.jpg"),
+    );
+
+    webviewPanel.webview.html = `Hello ${document.uri.toString()} <img src="${imgURI}" />`;
   }
 }
