@@ -1,0 +1,3 @@
+[submodule "external/speedscope"]
+	path = external/speedscope
+	url = git@github.com:sransara/speedscope.git
