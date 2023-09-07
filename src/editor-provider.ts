@@ -1,5 +1,13 @@
 import * as vscode from "vscode";
-import { SpeedscopeDocument } from "./document";
+import { SpeedscopeDocument } from "@src/document";
+
+// Build with
+// ```
+// cd exteral/speedscope
+// npm install
+// npx parcel build assets/index.html --public-url "./vscode-webview-url"
+// ```
+import * as _speedscopePageContent from "@external/speedscope/dist/index.html?raw";
 
 export class SpeedscopeEditorProvider
   implements vscode.CustomReadonlyEditorProvider<SpeedscopeDocument>
@@ -12,7 +20,7 @@ export class SpeedscopeEditorProvider
       new SpeedscopeEditorProvider(context),
       {
         webviewOptions: {
-          retainContextWhenHidden: false,
+          retainContextWhenHidden: true,
         },
         supportsMultipleEditorsPerDocument: false,
       },
@@ -39,10 +47,24 @@ export class SpeedscopeEditorProvider
       enableScripts: true,
     };
 
-    const imgURI = webviewPanel.webview.asWebviewUri(
-      vscode.Uri.joinPath(this.context.extensionUri, "test-files", "sand.jpg"),
+    let speedscopePageContent = _speedscopePageContent as unknown as string;
+    speedscopePageContent = speedscopePageContent.replaceAll(
+      /"vscode-webview-url\/(.*?)"/g,
+      (match, p1) => {
+        return webviewPanel.webview
+          .asWebviewUri(
+            vscode.Uri.joinPath(
+              this.context.extensionUri,
+              "external",
+              "speedscope",
+              "dist",
+              p1,
+            ),
+          )
+          .toString();
+      },
     );
 
-    webviewPanel.webview.html = `Hello ${document.uri.toString()} <img src="${imgURI}" />`;
+    webviewPanel.webview.html = speedscopePageContent;
   }
 }
