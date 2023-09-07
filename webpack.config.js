@@ -25,6 +25,12 @@ const extensionConfig = {
   resolve: {
     // support reading TypeScript and JavaScript files, 📖 -> https://github.com/TypeStrong/ts-loader
     extensions: [".ts", ".js"],
+    alias: {
+      // eslint-disable-next-line @typescript-eslint/naming-convention
+      "@src": path.resolve(__dirname, "src"),
+      // eslint-disable-next-line @typescript-eslint/naming-convention
+      "@external": path.resolve(__dirname, "external"),
+    },
   },
   module: {
     rules: [
@@ -36,6 +42,10 @@ const extensionConfig = {
             loader: "ts-loader",
           },
         ],
+      },
+      {
+        resourceQuery: /raw/,
+        type: "asset/source",
       },
     ],
   },
