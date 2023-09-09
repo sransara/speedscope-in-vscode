@@ -65,6 +65,21 @@ export class SpeedscopeEditorProvider
       },
     );
 
+    webviewPanel.webview.onDidReceiveMessage(async (e) => {
+      if (e.type === "ready") {
+        const docbytes = await vscode.workspace.fs.readFile(document.uri);
+        let filename = document.uri.path;
+        if (filename.includes("/")) {
+          filename = filename.slice(filename.lastIndexOf("/") + 1);
+        }
+        webviewPanel.webview.postMessage({
+          type: "load",
+          filename,
+          docbytes: new Uint8Array(docbytes),
+        });
+      }
+    });
+
     webviewPanel.webview.html = speedscopePageContent;
   }
 }
