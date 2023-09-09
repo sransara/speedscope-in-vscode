@@ -15,6 +15,8 @@ export class SpeedscopeEditorProvider
   public static readonly viewType = "speedscope-in-vscode.speedscope";
   public static readonly docScheme = "speedscope-in-vscode";
 
+  private logger: vscode.LogOutputChannel;
+
   public static register(context: vscode.ExtensionContext): vscode.Disposable {
     return vscode.window.registerCustomEditorProvider(
       SpeedscopeEditorProvider.viewType,
@@ -28,7 +30,15 @@ export class SpeedscopeEditorProvider
     );
   }
 
-  constructor(private readonly context: vscode.ExtensionContext) {}
+  constructor(private readonly context: vscode.ExtensionContext) {
+    this.logger = vscode.window.createOutputChannel("Speedscope", {
+      log: true,
+    });
+  }
+
+  dispose() {
+    this.logger.dispose();
+  }
 
   openCustomDocument(
     uri: vscode.Uri,
@@ -68,9 +78,11 @@ export class SpeedscopeEditorProvider
 
     webviewPanel.webview.onDidReceiveMessage(async (e) => {
       if (e.type === "ready") {
+        this.logger.info(`Speedscope view for ${document.uri} is ready`);
         if (document.uri.scheme === SpeedscopeEditorProvider.docScheme) {
           return;
         }
+        this.logger.info(`Trying to load document: ${document.uri}`);
         const docbytes = await vscode.workspace.fs.readFile(document.uri);
         let filename = document.uri.path;
         if (filename.includes("/")) {
@@ -81,6 +93,22 @@ export class SpeedscopeEditorProvider
           filename,
           docbytes: new Uint8Array(docbytes),
         });
+      } else if (e.type === "console") {
+        const prefix = `speedscope view: console.${e.method}:`;
+        switch (e.method) {
+          case "log":
+            this.logger.info(prefix, ...e.args);
+            break;
+          case "info":
+            this.logger.info(prefix, ...e.args);
+            break;
+          case "warn":
+            this.logger.warn(prefix, ...e.args);
+            break;
+          case "error":
+            this.logger.error(prefix, ...e.args);
+            break;
+        }
       }
     });
 
