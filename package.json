@@ -12,6 +12,12 @@
   "activationEvents": [],
   "main": "./dist/extension.js",
   "contributes": {
+    "commands": [
+      {
+        "command": "speedscope-in-vscode.openNewSpeedscopeView",
+        "title": "Open new speedscope view"
+      }
+    ],
     "customEditors": [
       {
         "viewType": "speedscope-in-vscode.speedscope",

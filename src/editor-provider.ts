@@ -12,7 +12,8 @@ import * as _speedscopePageContent from "@external/speedscope/dist/index.html?ra
 export class SpeedscopeEditorProvider
   implements vscode.CustomReadonlyEditorProvider<SpeedscopeDocument>
 {
-  private static readonly viewType = "speedscope-in-vscode.speedscope";
+  public static readonly viewType = "speedscope-in-vscode.speedscope";
+  public static readonly docScheme = "speedscope-in-vscode";
 
   public static register(context: vscode.ExtensionContext): vscode.Disposable {
     return vscode.window.registerCustomEditorProvider(
@@ -67,6 +68,9 @@ export class SpeedscopeEditorProvider
 
     webviewPanel.webview.onDidReceiveMessage(async (e) => {
       if (e.type === "ready") {
+        if (document.uri.scheme === SpeedscopeEditorProvider.docScheme) {
+          return;
+        }
         const docbytes = await vscode.workspace.fs.readFile(document.uri);
         let filename = document.uri.path;
         if (filename.includes("/")) {
