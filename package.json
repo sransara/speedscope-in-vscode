@@ -3,6 +3,10 @@
   "name": "speedscope-in-vscode",
   "displayName": "View speedscope flamegraphs in VSCode",
   "description": "View speedscope flamegraphs in VSCode",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sransara/speedscope-in-vscode.git"
+  },
   "version": "0.0.1",
   "license": "MIT",
   "engines": {
