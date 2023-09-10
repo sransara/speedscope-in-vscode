@@ -20,22 +20,30 @@ suite("Extension Test Suite", () => {
 
   test("Integrated test with simple.prof", async () => {
     const docUri = vscode.Uri.joinPath(workspaceUri, "simple.prof");
+
+    // Open the file in a custom editor
+    // Test if the custom editor provider works
     await vscode.commands.executeCommand(
       "vscode.openWith",
       docUri,
       customEditorViewType,
     );
+
+    // Testing if the extension activated
     const extensionApi: PublicApi =
       vscode.extensions.getExtension(extensionId)!.exports;
+
+    // Check if the webview panel is visible
     const webviewPanel = extensionApi.webviewPanels.get(docUri);
     assert.strictEqual(webviewPanel?.visible, true);
+
+    // Check if speedscope successfully loaded the file
     const success = await new Promise((resolve) => {
       webviewPanel.webview.onDidReceiveMessage((e) => {
         if (
-          e.type === "ready" ||
-          false
+          e.type === "loaded"
           // TODO: handle race condition where ready message is sent before
-          // (e.question === "ready" && e.answer === "yes")
+          // (e.question === "loaded" && e.answer === "yes")
         ) {
           resolve(true);
         }
