@@ -6,6 +6,8 @@
 !package.json
 !package-lock.json
 !README.md
+!LICENSE
 !CHANGELOG.md
+!media/*
 !dist/extension.js
 !external/speedscope/dist/*
