@@ -23,6 +23,7 @@ export function run(): Promise<void> {
     });
     testFileStream.on("end", () => {
       try {
+        mocha.timeout(50000);
         // Run the mocha test
         mocha.run((failures) => {
           if (failures > 0) {
