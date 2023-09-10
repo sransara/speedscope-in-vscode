@@ -4,6 +4,7 @@
   "displayName": "View speedscope flamegraphs in VSCode",
   "description": "View speedscope flamegraphs in VSCode",
   "version": "0.0.1",
+  "license": "MIT",
   "engines": {
     "vscode": "^1.81.0"
   },
