@@ -1,7 +1,7 @@
 {
   "publisher": "sransara",
   "name": "speedscope-in-vscode",
-  "displayName": "View speedscope flamegraphs in VSCode",
+  "displayName": "Speedscope in VSCode",
   "description": "View speedscope flamegraphs in VSCode",
   "repository": {
     "type": "git",
