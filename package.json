@@ -1,4 +1,5 @@
 {
+  "publisher": "sransara",
   "name": "speedscope-in-vscode",
   "displayName": "View speedscope flamegraphs in VSCode",
   "description": "View speedscope flamegraphs in VSCode",

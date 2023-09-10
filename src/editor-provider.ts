@@ -8,19 +8,24 @@ import { SpeedscopeDocument } from "@src/document";
 // npx parcel build assets/index.html --public-url "./vscode-webview-url"
 // ```
 import * as _speedscopePageContent from "@external/speedscope/dist/index.html?raw";
+import {
+  WebViewPanelCollection,
+  docUriScheme,
+  customEditorViewType,
+} from "@src/common";
 
 export class SpeedscopeEditorProvider
   implements vscode.CustomReadonlyEditorProvider<SpeedscopeDocument>
 {
-  public static readonly viewType = "speedscope-in-vscode.speedscope";
-  public static readonly docScheme = "speedscope-in-vscode";
-
   private logger: vscode.LogOutputChannel;
 
-  public static register(context: vscode.ExtensionContext): vscode.Disposable {
+  public static register(
+    context: vscode.ExtensionContext,
+    webviewPanels: WebViewPanelCollection,
+  ): vscode.Disposable {
     return vscode.window.registerCustomEditorProvider(
-      SpeedscopeEditorProvider.viewType,
-      new SpeedscopeEditorProvider(context),
+      customEditorViewType,
+      new SpeedscopeEditorProvider(context, webviewPanels),
       {
         webviewOptions: {
           retainContextWhenHidden: true,
@@ -30,7 +35,10 @@ export class SpeedscopeEditorProvider
     );
   }
 
-  constructor(private readonly context: vscode.ExtensionContext) {
+  constructor(
+    private readonly context: vscode.ExtensionContext,
+    private readonly webviewPanels: WebViewPanelCollection,
+  ) {
     this.logger = vscode.window.createOutputChannel("Speedscope", {
       log: true,
     });
@@ -53,11 +61,18 @@ export class SpeedscopeEditorProvider
     webviewPanel: vscode.WebviewPanel,
     token: vscode.CancellationToken,
   ): void | Thenable<void> {
-    // Setup initial content for the webview
+    // Add webview to the list of webviewPanels
+    this.webviewPanels.set(document.uri, webviewPanel);
+    webviewPanel.onDidDispose(() => {
+      this.webviewPanels.delete(document.uri);
+    });
+
+    // Set webview options
     webviewPanel.webview.options = {
       enableScripts: true,
     };
 
+    // Setup initial content for the webview
     let speedscopePageContent = _speedscopePageContent as unknown as string;
     speedscopePageContent = speedscopePageContent.replaceAll(
       /"vscode-webview-url\/(.*?)"/g,
@@ -79,7 +94,7 @@ export class SpeedscopeEditorProvider
     webviewPanel.webview.onDidReceiveMessage(async (e) => {
       if (e.type === "ready") {
         this.logger.info(`Speedscope view for ${document.uri} is ready`);
-        if (document.uri.scheme === SpeedscopeEditorProvider.docScheme) {
+        if (document.uri.scheme === docUriScheme) {
           return;
         }
         this.logger.info(`Trying to load document: ${document.uri}`);
