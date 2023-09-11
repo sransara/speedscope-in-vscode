@@ -24,8 +24,8 @@
   "contributes": {
     "commands": [
       {
-        "command": "speedscope-in-vscode.openNewSpeedscopeView",
-        "title": "Open new speedscope view"
+        "command": "speedscope-in-vscode.openSpeedscope",
+        "title": "Open speedscope"
       }
     ],
     "customEditors": [

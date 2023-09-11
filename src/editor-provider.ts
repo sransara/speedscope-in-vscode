@@ -10,8 +10,8 @@ import { SpeedscopeDocument } from "@src/document";
 import * as _speedscopePageContent from "@external/speedscope/dist/index.html?raw";
 import {
   WebViewPanelCollection,
-  docUriScheme,
   customEditorViewType,
+  PublicApi,
 } from "@src/common";
 
 export class SpeedscopeEditorProvider
@@ -21,11 +21,11 @@ export class SpeedscopeEditorProvider
 
   public static register(
     context: vscode.ExtensionContext,
-    webviewPanels: WebViewPanelCollection,
+    api: PublicApi,
   ): vscode.Disposable {
     return vscode.window.registerCustomEditorProvider(
       customEditorViewType,
-      new SpeedscopeEditorProvider(context, webviewPanels),
+      new SpeedscopeEditorProvider(context, api.webviewPanels),
       {
         webviewOptions: {
           retainContextWhenHidden: true,
@@ -94,9 +94,6 @@ export class SpeedscopeEditorProvider
     webviewPanel.webview.onDidReceiveMessage(async (e) => {
       if (e.type === "ready") {
         this.logger.info(`Speedscope view for ${document.uri} is ready`);
-        if (document.uri.scheme === docUriScheme) {
-          return;
-        }
         this.logger.info(`Trying to load document: ${document.uri}`);
         const docbytes = await vscode.workspace.fs.readFile(document.uri);
         let filename = document.uri.path;

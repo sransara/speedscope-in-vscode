@@ -4,7 +4,7 @@ import * as assert from "assert";
 // as well as import your extension to test it
 import * as vscode from "vscode";
 
-import { extensionId, customEditorViewType, PublicApi } from "../../common";
+import { extensionId, PublicApi, extensionName } from "../../common";
 
 suite("Extension Test Suite", () => {
   vscode.window.showInformationMessage("Start all tests.");
@@ -24,9 +24,8 @@ suite("Extension Test Suite", () => {
     // Open the file in a custom editor
     // Test if the custom editor provider works
     await vscode.commands.executeCommand(
-      "vscode.openWith",
+      `${extensionName}.openSpeedscope`,
       docUri,
-      customEditorViewType,
     );
 
     // Testing if the extension activated

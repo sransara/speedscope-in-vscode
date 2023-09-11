@@ -5,7 +5,6 @@ export const extensionName = "speedscope-in-vscode";
 export const extensionId = `${publisher}.${extensionName}`;
 
 export const customEditorViewType = "speedscope-in-vscode.speedscope";
-export const docUriScheme = "speedscope-in-vscode";
 
 export class PublicApi {
   webviewPanels = new WebViewPanelCollection();
