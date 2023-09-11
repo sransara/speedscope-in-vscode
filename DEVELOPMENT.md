@@ -13,7 +13,7 @@ git clone --recurse-submodules https://github.com/sransara/speedscope-in-vscode
 
 ```
 npm install
-./external/speedscope/scripts/build-for-vscode.sh
+npm run build-external-deps
 ```
 
 3. We are ready to roll
