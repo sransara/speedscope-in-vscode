@@ -25,3 +25,7 @@ This extension extends [speedscope](https://github.com/jlfwong/speedscope) to be
 ### TODO
 
 - Only files an be opened at the moment. Allow directories as inputs for opening [Instruments traces](https://help.apple.com/instruments/mac/10.0/).
+
+## Development
+
+See [DEVELOPMENT.md](DEVELOPMENT.md) for development and implementation details.
