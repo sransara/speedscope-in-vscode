@@ -10,6 +10,10 @@ View speedscope flamegraphs in VSCode.
 >
 > from https://github.com/jlfwong/speedscope
 
+## Installation
+
+[Intall from VSCode marketplace](https://marketplace.visualstudio.com/items?itemName=sransara.speedscope-in-vscode)
+
 ## Screenshot
 
 ![screenshot.jpg](./media/screenshot.jpg)
