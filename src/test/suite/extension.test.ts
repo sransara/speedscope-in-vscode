@@ -39,12 +39,12 @@ suite("Extension Test Suite", () => {
     // Check if speedscope successfully loaded the file
     const success = await new Promise((resolve) => {
       webviewPanel.webview.onDidReceiveMessage((e) => {
-        if (
-          e.type === "loaded"
-          // TODO: handle race condition where ready message is sent before
-          // (e.question === "loaded" && e.answer === "yes")
-        ) {
+        // TODO: handle race condition where ready message is sent before
+        // (e.question === "error" && e.answer === "yes")
+        if (e.clientEvent === "opennedFile") {
           resolve(true);
+        } else if (e.clientEvent === "error") {
+          resolve(false);
         }
       });
     });

@@ -92,7 +92,7 @@ export class SpeedscopeEditorProvider
     );
 
     webviewPanel.webview.onDidReceiveMessage(async (e) => {
-      if (e.type === "ready") {
+      if (e.clientEvent === "ready") {
         this.logger.info(`Speedscope view for ${document.uri} is ready`);
         this.logger.info(`Trying to load document: ${document.uri}`);
         const docbytes = await vscode.workspace.fs.readFile(document.uri);
@@ -101,11 +101,11 @@ export class SpeedscopeEditorProvider
           filename = filename.slice(filename.lastIndexOf("/") + 1);
         }
         webviewPanel.webview.postMessage({
-          type: "load",
+          serverCommand: "openFile",
           filename,
           docbytes: new Uint8Array(docbytes),
         });
-      } else if (e.type === "console") {
+      } else if (e.clientCommand === "console") {
         const prefix = `speedscope view: console.${e.method}:`;
         switch (e.method) {
           case "log":
@@ -121,6 +121,8 @@ export class SpeedscopeEditorProvider
             this.logger.error(prefix, ...e.args);
             break;
         }
+      } else if (e.clientEvent === "error") {
+        this.logger.show();
       }
     });
 
