@@ -10,17 +10,21 @@ View speedscope flamegraphs in VSCode.
 >
 > from https://github.com/jlfwong/speedscope
 
+## Screenshot
+
+![screenshot.jpg](./media/screenshot.jpg)
+
 ## Features
 
 This extension extends [speedscope](https://github.com/jlfwong/speedscope) to be viewable from VSCode.
 
-- Open speedscope compatible files
+- Open [speedscope compatible files](https://github.com/jlfwong/speedscope/wiki)
   - Right click particular file in VSCode File Explorer
   - Select "Open with..."
   - Select "Speedscope"
 - Support opening remote files
   - Use "Open with..." from VSCode File Explorer like a local file
-- Open a Speedscope tab with command: `speedscope-in-vscode.openNewSpeedscopeView`
+- Open a Speedscope view with command: `speedscope-in-vscode.openSpeedscope`
 
 ### TODO
 
