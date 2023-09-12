@@ -35,6 +35,16 @@ This extension extends [speedscope](https://github.com/jlfwong/speedscope) to be
 - Only files can be opened at the moment.
   Allow directories as inputs to support opening [Instruments traces](https://help.apple.com/instruments/mac/10.0/).
 
+## Build from source
+
+```
+# Build deps
+npm install
+npm run build-external-deps
+# Build extension
+npx vsce package
+```
+
 ## Development
 
 See [DEVELOPMENT.md](DEVELOPMENT.md) for development and implementation details.
