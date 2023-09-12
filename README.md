@@ -1,4 +1,4 @@
-# Speedscope in Vscode
+# Speedscope in VScode
 
 View speedscope flamegraphs in VSCode.
 
