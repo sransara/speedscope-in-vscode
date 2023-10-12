@@ -64,22 +64,32 @@ We use a simple RPC mechanism to communicate between VSCode and Speedscope.
 ```
 Speedscope -> VSCode
 {
-clientEvent: 'ready'
+   clientEvent: 'ready'
 }
 
 VSCode -> Speedscope
 {
-serverCommand: 'openFile',
-filename: 'simple.prof',
-docbytes: Uint8Array(...)
+   serverCommand: 'openFile',
+   filename: 'simple.prof',
+   docbytes: Uint8Array(...)
 }
 
 Speedscope -> VSCode
 {
-clientEvent: 'opennedFile',
+   clientEvent: 'opennedFile',
 }
 or
 {
-clientEvent: 'error',
+   clientEvent: 'error',
+}
+
+Speedscope -> VSCode
+{
+   clientCommand: 'openFile',
+   args: {
+      file: string,
+      line: number,
+      col: number,
+   }
 }
 ```

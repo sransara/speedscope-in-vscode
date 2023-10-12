@@ -29,6 +29,7 @@ This extension extends [speedscope](https://github.com/jlfwong/speedscope) to be
 - Support opening remote files
   - Use "Open with..." from VSCode File Explorer like a local file
 - Open a Speedscope view with command: `speedscope-in-vscode.openSpeedscope`
+- Click to open linked files in the stacktrace view (if relative path assume it is relative to the file being viewed)
 
 ### TODO
 

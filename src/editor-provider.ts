@@ -123,6 +123,28 @@ export class SpeedscopeEditorProvider
         }
       } else if (e.clientEvent === "error") {
         this.logger.show();
+      } else if (e.clientCommand === "openFile") {
+        let fileUri: vscode.Uri;
+        if (e.args.file.startsWith("/") || e.args.file[1] === ":") {
+          fileUri = vscode.Uri.file(e.args.file);
+        } else {
+          // If relative path, assume it is relative to the current document
+          fileUri = vscode.Uri.joinPath(document.uri, "..", e.args.file);
+        }
+        await vscode.commands.executeCommand("vscode.open", fileUri, {
+          preview: false,
+        });
+        let editor = vscode.window.activeTextEditor;
+        if (!editor) {
+          return;
+        }
+        var position = new vscode.Position(
+          (e.args.line ?? 1) - 1,
+          (e.args.col ?? 1) - 1,
+        );
+        editor.selections = [new vscode.Selection(position, position)];
+        var range = new vscode.Range(position, position);
+        editor.revealRange(range);
       }
     });
 
