@@ -1,14 +1,10 @@
-# Speedscope in VScode
+# Speedscope in VSCode
 
-VSCode extension for viewing speedscope flamegraphs.
+VSCode extension for viewing [Speedscope](https://github.com/jlfwong/speedscope) flamegraphs.
 
-[Speedscope](https://www.speedscope.app/) is:
+## Why not just use the [Speedscope app](https://www.speedscope.app/)?
 
-> A fast, interactive web-based viewer for performance profiles.
-> An alternative viewer for FlameGraphs.
-> Will happily display multi-megabyte profiles without crashing your browser.
->
-> from https://github.com/jlfwong/speedscope
+With this extension you can open Speedscope compatible files directly from VSCode and jump to the source code locations of the profiled functions.
 
 ## Installation
 
@@ -30,16 +26,16 @@ This extension extends [speedscope](https://github.com/jlfwong/speedscope) to be
 
 ### Support opening remote files
 
-- Use "Open with..." from VSCode File Explorer like a local file
+- Use "Open with..." from VSCode File Explorer just like a local file
 
 ### Open a Speedscope view with command: `speedscope-in-vscode.openSpeedscope`
 
-### Directly open files
-
-(if relative path assume it is relative to the file being viewed)
+### From a Speedscope view jump to profiled source file locations
 
 - Ctrl + click on a colored block to open the associated file
 - Or click link to a file in the stack detail view
+
+(if relative path assume it is relative to the file being viewed)
 
 ## TODO
 
