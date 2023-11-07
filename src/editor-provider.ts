@@ -144,7 +144,10 @@ export class SpeedscopeEditorProvider
         );
         editor.selections = [new vscode.Selection(position, position)];
         var range = new vscode.Range(position, position);
-        editor.revealRange(range);
+        editor.revealRange(
+          range,
+          vscode.TextEditorRevealType.InCenterIfOutsideViewport,
+        );
       }
     });
 
