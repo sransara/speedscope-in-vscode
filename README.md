@@ -32,7 +32,7 @@ This extension extends [speedscope](https://github.com/jlfwong/speedscope) to be
 
 ### From a Speedscope view jump to profiled source file locations
 
-- Ctrl + click on a colored block to open the associated file
+- Ctrl + click (Command + click on MacOS) on a colored block to open the associated file
 - Or click link to a file in the stack detail view
 
 (if relative path assume it is relative to the file being viewed)
