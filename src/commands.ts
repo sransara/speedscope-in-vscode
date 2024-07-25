@@ -8,7 +8,7 @@ export class Commands {
   ) {
     const commandName = `${extensionName}.openSpeedscope`;
 
-    const handler = async (uri?: vscode.Uri) => {
+    const handler = async (uri?: vscode.Uri | string) => {
       if (!uri) {
         const uris = await vscode.window.showOpenDialog({
           canSelectFiles: true,
@@ -20,6 +20,9 @@ export class Commands {
           return;
         }
         uri = uris[0];
+      }
+      if (typeof uri === "string") {
+        uri = vscode.Uri.file(uri);
       }
       await vscode.commands.executeCommand(
         "vscode.openWith",
