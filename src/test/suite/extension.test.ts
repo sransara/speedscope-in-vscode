@@ -54,8 +54,21 @@ suite("Extension Test Suite", () => {
 
   // openSpeedscope command should accept string argument as well as Uri
   // this is necessary to support adding keybindings for example
-  test("Test openSpeedscope command with string argument", async () => {
+  test("Test openSpeedscope command with absolute path string argument", async () => {
     const filePath = path.join(workspaceUri.path, "simple.prof");
+    await vscode.commands.executeCommand(
+      `${extensionName}.openSpeedscope`,
+      filePath,
+    );
+
+    // Testing if the extension activated
+    const extensionApi: PublicApi =
+      vscode.extensions.getExtension(extensionId)!.exports;
+  });
+
+  // Test if the extension can open a file with a relative path
+  test("Test openSpeedscope command with relative path string argument", async () => {
+    const filePath = "./simple.prof";
     await vscode.commands.executeCommand(
       `${extensionName}.openSpeedscope`,
       filePath,

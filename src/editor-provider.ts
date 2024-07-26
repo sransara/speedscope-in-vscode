@@ -95,16 +95,25 @@ export class SpeedscopeEditorProvider
       if (e.clientEvent === "ready") {
         this.logger.info(`Speedscope view for ${document.uri} is ready`);
         this.logger.info(`Trying to load document: ${document.uri}`);
-        const docbytes = await vscode.workspace.fs.readFile(document.uri);
-        let filename = document.uri.path;
-        if (filename.includes("/")) {
-          filename = filename.slice(filename.lastIndexOf("/") + 1);
-        }
-        webviewPanel.webview.postMessage({
-          serverCommand: "openFile",
-          filename,
-          docbytes: new Uint8Array(docbytes),
-        });
+        await vscode.window.withProgress(
+          {
+            location: vscode.ProgressLocation.Notification,
+            title: "Loading profile...",
+            cancellable: false,
+          },
+          async () => {
+            const docbytes = await vscode.workspace.fs.readFile(document.uri);
+            let filename = document.uri.path;
+            if (filename.includes("/")) {
+              filename = filename.slice(filename.lastIndexOf("/") + 1);
+            }
+            webviewPanel.webview.postMessage({
+              serverCommand: "openFile",
+              filename,
+              docbytes: new Uint8Array(docbytes),
+            });
+          },
+        );
       } else if (e.clientCommand === "console") {
         const prefix = `speedscope view: console.${e.method}:`;
         switch (e.method) {
