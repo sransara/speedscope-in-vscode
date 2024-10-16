@@ -58,7 +58,7 @@ See [DEVELOPMENT.md](DEVELOPMENT.md) for development and implementation details.
 
 ## Usage tips
 
-- An example usage: Profile .NET MAUI Applications to Find Performance Issues: [Video](https://www.youtube.com/watch?v=-4VWRt_-PKw) and [Blogpost](https://community.devexpress.com/blogs/mobile/archive/2024/04/01/How-to-Profile-NET-MAUI-Applications-and-Isolate-Performance-Related-Issues.aspx) (Thanks to @Alexgoon)
+- An example usage: Profile .NET MAUI Applications to Find Performance Issues: [Video](https://www.youtube.com/watch?v=-4VWRt_-PKw) and [Blogpost](https://community.devexpress.com/blogs/mobile/archive/2024/04/01/How-to-Profile-NET-MAUI-Applications-and-Isolate-Performance-Related-Issues.aspx) (Thanks to [@Alexgoon](https://github.com/sransara/speedscope-in-vscode/issues/5))
 - To specify files with certain file extensions to be opened by default with this viewer within VSCode:
 
   Add the following in your workspace `settings.json`.
