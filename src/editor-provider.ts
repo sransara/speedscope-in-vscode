@@ -136,6 +136,8 @@ export class SpeedscopeEditorProvider
         let fileUri: vscode.Uri;
         if (e.args.file.startsWith("/") || e.args.file[1] === ":") {
           fileUri = vscode.Uri.file(e.args.file);
+        } else if (e.args.file.startsWith("file://")) {
+          fileUri = vscode.Uri.file(e.args.file.replace("file://", ""));
         } else {
           // If relative path, assume it is relative to the current document
           fileUri = vscode.Uri.joinPath(document.uri, "..", e.args.file);
